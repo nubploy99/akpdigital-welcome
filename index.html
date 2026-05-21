@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AKP Digital</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Josefin+Sans:wght@100;200;300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --warm-cream: #f5ede0;
+      --warm-gold: #c9a96e;
+      --deep-brown: #2c1f14;
+      --soft-amber: #e8c99a;
+      --muted-text: rgba(245, 237, 224, 0.7);
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--deep-brown);
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--warm-gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+      mix-blend-mode: screen;
+    }
+
+    .cursor-ring {
+      position: fixed;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(201, 169, 110, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease, width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+    }
+
+    /* Video background */
+    .video-wrapper {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+    }
+
+    #bg-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Warm overlay layers */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background:
+        radial-gradient(ellipse at center, transparent 20%, rgba(20, 10, 5, 0.55) 100%),
+        linear-gradient(to bottom, rgba(20, 10, 5, 0.25) 0%, transparent 40%, transparent 60%, rgba(20, 10, 5, 0.5) 100%);
+    }
+
+    /* Warm tone color wash */
+    .color-wash {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      background: rgba(180, 100, 30, 0.08);
+      mix-blend-mode: multiply;
+    }
+
+    /* Grain texture */
+    .grain {
+      position: fixed;
+      inset: -50%;
+      z-index: 3;
+      width: 200%;
+      height: 200%;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      animation: grain-move 8s steps(10) infinite;
+    }
+
+    @keyframes grain-move {
+      0%, 100% { transform: translate(0, 0); }
+      10% { transform: translate(-2%, -3%); }
+      20% { transform: translate(3%, 1%); }
+      30% { transform: translate(-1%, 4%); }
+      40% { transform: translate(2%, -2%); }
+      50% { transform: translate(-3%, 2%); }
+      60% { transform: translate(1%, -3%); }
+      70% { transform: translate(-2%, 1%); }
+      80% { transform: translate(3%, 3%); }
+      90% { transform: translate(-1%, -1%); }
+    }
+
+    /* Main content */
+    .content {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      opacity: 0;
+      animation: content-reveal 2.5s ease forwards 0.8s;
+    }
+
+    @keyframes content-reveal {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Top deco line */
+    .deco-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--warm-gold));
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: line-reveal 1.8s ease forwards 1.4s;
+    }
+
+    @keyframes line-reveal {
+      from { opacity: 0; transform: scaleY(0); transform-origin: top; }
+      to   { opacity: 0.6; transform: scaleY(1); transform-origin: top; }
+    }
+
+    /* Eyebrow text */
+    .eyebrow {
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 100;
+      font-size: clamp(9px, 1.2vw, 11px);
+      letter-spacing: 0.35em;
+      color: var(--warm-gold);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fade-up 1.5s ease forwards 1.6s;
+    }
+
+    /* Main title */
+    .title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(48px, 8vw, 96px);
+      color: var(--warm-cream);
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      text-align: center;
+      opacity: 0;
+      animation: fade-up 1.8s ease forwards 1.8s;
+    }
+
+    .title em {
+      font-style: italic;
+      color: var(--soft-amber);
+    }
+
+    /* Tagline */
+    .tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(13px, 1.8vw, 17px);
+      color: var(--muted-text);
+      margin-top: 18px;
+      letter-spacing: 0.05em;
+      opacity: 0;
+      animation: fade-up 1.5s ease forwards 2.2s;
+    }
+
+    /* Bottom deco line */
+    .deco-line-bottom {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--warm-gold), transparent);
+      margin-top: 36px;
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: fade-up 1.5s ease forwards 2.4s;
+    }
+
+    /* Enter button */
+    .enter-btn {
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 200;
+      font-size: clamp(10px, 1.3vw, 12px);
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--warm-cream);
+      text-decoration: none;
+      border: none;
+      background: transparent;
+      cursor: none;
+      padding: 14px 36px;
+      position: relative;
+      opacity: 0;
+      animation: fade-up 1.5s ease forwards 2.6s;
+      transition: color 0.4s ease;
+    }
+
+    .enter-btn::before,
+    .enter-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--warm-gold);
+      opacity: 0.5;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .enter-btn::before {
+      transform: scale(1, 1);
+    }
+
+    .enter-btn::after {
+      transform: scale(0.92, 0.85);
+      opacity: 0.2;
+    }
+
+    .enter-btn:hover {
+      color: var(--soft-amber);
+    }
+
+    .enter-btn:hover::before {
+      opacity: 0.9;
+    }
+
+    .enter-btn:hover::after {
+      opacity: 0.4;
+      transform: scale(1.06, 1.15);
+    }
+
+    /* Bottom credit */
+    .bottom-text {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 100;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: rgba(245, 237, 224, 0.25);
+      text-transform: uppercase;
+      white-space: nowrap;
+      opacity: 0;
+      animation: fade-up 1.5s ease forwards 3s;
+    }
+
+    /* Sound toggle */
+    .sound-toggle {
+      position: fixed;
+      bottom: 32px;
+      right: 36px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: none;
+      opacity: 0;
+      animation: fade-up 1.5s ease forwards 3s;
+    }
+
+    .sound-toggle span {
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 100;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: rgba(245, 237, 224, 0.3);
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .sound-toggle:hover span {
+      color: var(--warm-gold);
+    }
+
+    .sound-icon {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+    }
+
+    .sound-bar {
+      width: 2px;
+      background: rgba(201, 169, 110, 0.4);
+      border-radius: 1px;
+      transition: background 0.3s ease;
+      animation: sound-wave 1.2s ease-in-out infinite;
+    }
+
+    .sound-bar:nth-child(1) { height: 40%; animation-delay: 0s; }
+    .sound-bar:nth-child(2) { height: 100%; animation-delay: 0.2s; }
+    .sound-bar:nth-child(3) { height: 60%; animation-delay: 0.4s; }
+    .sound-bar:nth-child(4) { height: 80%; animation-delay: 0.1s; }
+
+    @keyframes sound-wave {
+      0%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(0.3); }
+    }
+
+    .sound-bar.muted {
+      animation: none;
+      height: 2px !important;
+      transform: none;
+    }
+
+    .sound-toggle:hover .sound-bar {
+      background: var(--warm-gold);
+    }
+
+    /* Transition overlay on click */
+    .transition-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: var(--deep-brown);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1.2s ease;
+    }
+
+    .transition-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <!-- Video background -->
+  <div class="video-wrapper">
+    <video id="bg-video" autoplay muted loop playsinline>
+      <!--
+        วางไฟล์วิดีโอ .mp4 ไว้ในโฟลเดอร์เดียวกับ index.html
+        แล้วเปลี่ยน your-video.mp4 เป็นชื่อไฟล์ของพลอยค่ะ
+      -->
+      <source src="วีดีโอหน้าเพจ.mp4" type="video/mp4" />
+    </video>
+  </div>
+
+  <!-- Overlays -->
+  <div class="overlay"></div>
+  <div class="color-wash"></div>
+  <div class="grain"></div>
+
+  <!-- Main content -->
+  <div class="content">
+    <div class="deco-line"></div>
+    <p class="eyebrow">Welcome to</p>
+    <h1 class="title">AKP <em>Digital</em></h1>
+    <p class="tagline">A quiet space for ideas, stories & digital things.</p>
+    <div class="deco-line-bottom"></div>
+    <button class="enter-btn" onclick="enterSite()">Enter the Library</button>
+  </div>
+
+  <!-- Bottom text -->
+  <p class="bottom-text">akpdigital.com &nbsp;·&nbsp; est. 2024</p>
+
+  <!-- Sound toggle -->
+  <div class="sound-toggle" id="soundToggle" onclick="toggleSound()">
+    <div class="sound-icon" id="soundIcon">
+      <div class="sound-bar"></div>
+      <div class="sound-bar"></div>
+      <div class="sound-bar"></div>
+      <div class="sound-bar"></div>
+    </div>
+    <span id="soundLabel">Sound On</span>
+  </div>
+
+  <!-- Transition overlay -->
+  <div class="transition-overlay" id="transitionOverlay"></div>
+
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursor-ring');
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.left = mouseX + 'px';
+      cursor.style.top = mouseY + 'px';
+    });
+
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      cursorRing.style.left = ringX + 'px';
+      cursorRing.style.top = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    // Hover effect on button
+    const btn = document.querySelector('.enter-btn');
+    btn.addEventListener('mouseenter', () => {
+      cursor.style.width = '14px';
+      cursor.style.height = '14px';
+      cursorRing.style.width = '54px';
+      cursorRing.style.height = '54px';
+    });
+    btn.addEventListener('mouseleave', () => {
+      cursor.style.width = '8px';
+      cursor.style.height = '8px';
+      cursorRing.style.width = '36px';
+      cursorRing.style.height = '36px';
+    });
+
+    // Sound toggle (unmute video)
+    let isMuted = true;
+    const video = document.getElementById('bg-video');
+
+    function toggleSound() {
+      isMuted = !isMuted;
+      video.muted = isMuted;
+      const bars = document.querySelectorAll('.sound-bar');
+      const label = document.getElementById('soundLabel');
+      bars.forEach(bar => bar.classList.toggle('muted', isMuted));
+      label.textContent = isMuted ? 'Sound Off' : 'Sound On';
+
+      if (!isMuted) {
+        video.play().catch(() => {});
+      }
+    }
+
+    // Enter site transition
+    function enterSite() {
+      const overlay = document.getElementById('transitionOverlay');
+      overlay.classList.add('active');
+      setTimeout(() => {
+        // เปลี่ยน URL นี้เป็นหน้าหลักของพลอยค่ะ
+        window.location.href = 'https://akpdigital.com';
+      }, 1200);
+    }
+
+    // Keyboard Enter support
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') enterSite();
+    });
+  </script>
+
+</body>
+</html>
