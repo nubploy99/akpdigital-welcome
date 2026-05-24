@@ -251,7 +251,14 @@
       </div>
     `).join('');
 
-    function goToRoom(id) { window.location.href = `room.html?id=${id}`; }
+    function goToRoom(id) {
+      const password = prompt('กรุณาใส่รหัสผ่านค่ะ\nPlease enter your access code:');
+      if (password === 'AKP4102') {
+        window.location.href = `room.html?id=${id}`;
+      } else if (password !== null) {
+        alert('รหัสผ่านไม่ถูกต้องค่ะ\nIncorrect access code. Please check your purchase confirmation.');
+      }
+    }
   </script>
 </body>
 </html>
