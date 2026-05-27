@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AKP Digital — Room</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Mitr:wght@200;300;400&family=Sarabun:ital,wght@0,200;1,200&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #f5ede0;
+      --gold: #c9a96e;
+      --deep: #2c1a0e;
+      --amber: #e8c99a;
+      --muted: rgba(245,237,224,0.6);
+    }
+
+    html, body {
+      width: 100%; min-height: 100vh;
+      background: var(--deep);
+      font-family: 'Mitr', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .bg {
+      position: fixed; inset: 0; z-index: 0;
+      background-size: cover; background-position: center;
+      transition: background-image 0.8s ease;
+
+    }
+
+    .overlay {
+      position: fixed; inset: 0; z-index: 1;
+      background: radial-gradient(ellipse at center, transparent 20%, rgba(20,10,5,0.7) 100%);
+    }
+
+    .header {
+      position: relative; z-index: 10;
+      padding: 40px 24px 0;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center;
+    }
+
+    .brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: 11px;
+      letter-spacing: 0.4em; color: var(--gold);
+      text-transform: uppercase; margin-bottom: 20px;
+      opacity: 0; animation: fade-up 1s ease forwards 0.3s;
+    }
+
+    .book-cover {
+      width: 140px; height: 200px;
+      object-fit: cover; border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6), -4px 0 12px rgba(0,0,0,0.4);
+      margin-bottom: 20px;
+      opacity: 0; animation: fade-up 1s ease forwards 0.5s;
+    }
+
+    .book-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 200; font-style: italic;
+      font-size: clamp(20px, 5vw, 28px);
+      color: var(--cream); line-height: 1.4;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+      opacity: 0; animation: fade-up 1s ease forwards 0.7s;
+    }
+
+    .book-title-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-style: italic;
+      font-size: 14px; color: var(--amber);
+      margin-top: 6px; letter-spacing: 0.05em;
+      opacity: 0; animation: fade-up 1s ease forwards 0.9s;
+    }
+
+    .divider {
+      display: flex; align-items: center; gap: 10px;
+      margin: 24px 0;
+      opacity: 0; animation: fade-up 1s ease forwards 1s;
+    }
+    .div-line { width: 40px; height: 1px; background: linear-gradient(to right, transparent, var(--gold)); }
+    .div-line.r { background: linear-gradient(to left, transparent, var(--gold)); }
+    .div-dot { width: 4px; height: 4px; background: var(--gold); transform: rotate(45deg); }
+
+    .content {
+      position: relative; z-index: 10;
+      padding: 0 24px 60px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 16px;
+    }
+
+    .section-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-style: italic;
+      font-size: 13px; color: var(--muted);
+      letter-spacing: 0.1em; margin-bottom: 4px;
+      text-align: center;
+    }
+
+    .product-btn {
+      width: 100%; max-width: 320px;
+      padding: 16px 24px;
+      background: rgba(245,237,224,0.06);
+      border: 1px solid rgba(201,169,110,0.4);
+      border-radius: 4px;
+      color: var(--cream);
+      font-family: 'Mitr', sans-serif;
+      font-weight: 300; font-size: 15px;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 14px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      opacity: 0; animation: fade-up 1s ease forwards;
+    }
+
+    .product-btn:nth-child(1) { animation-delay: 1.1s; }
+    .product-btn:nth-child(2) { animation-delay: 1.2s; }
+    .product-btn:nth-child(3) { animation-delay: 1.3s; }
+    .product-btn:nth-child(4) { animation-delay: 1.4s; }
+
+    .product-btn:hover {
+      background: rgba(201,169,110,0.15);
+      border-color: rgba(201,169,110,0.8);
+      transform: translateY(-2px);
+    }
+
+    .btn-icon { font-size: 22px; }
+    .btn-text { display: flex; flex-direction: column; text-align: left; }
+    .btn-title { font-size: 15px; color: var(--cream); }
+    .btn-sub { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+    .nav-buttons {
+      position: relative; z-index: 10;
+      padding: 0 24px 40px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 10px;
+      opacity: 0; animation: fade-up 1s ease forwards 1.5s;
+    }
+
+    .nav-btn {
+      font-family: 'Mitr', sans-serif;
+      font-weight: 200; font-size: 12px;
+      color: rgba(245,237,224,0.85);
+      background: transparent; border: none;
+      cursor: pointer; letter-spacing: 0.1em;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+    .nav-btn:hover { color: var(--gold); }
+
+    .not-found {
+      position: relative; z-index: 10;
+      text-align: center; padding: 80px 24px;
+      color: var(--muted);
+    }
+    .not-found h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: 28px;
+      color: var(--cream); margin-bottom: 12px;
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg" id="bg"></div>
+  <div class="overlay"></div>
+
+  <div id="app"></div>
+
+  <script>
+    const products = {
+      'rainbowbridge': {
+        id: 'rainbowbridge',
+        titleTh: 'จดหมายจากสะพานสายรุ้ง',
+        titleEn: 'Letters from the Rainbow Bridge',
+        cover: 'book-rainbow-th.png',
+        bg: '1000014923.png',
+        files: {
+          flipbook: 'https://heyzine.com/flip-book/d8cd264b61.html',
+          audio: null,
+          video: null,
+          audiobook: null,
+        }
+      },
+      'rainbowbridge-en': {
+        id: 'rainbowbridge-en',
+        titleTh: 'A Letter from the Rainbow Bridge',
+        titleEn: '',
+        cover: 'book-rainbow-en.png',
+        bg: '1000014923.png',
+        files: {
+          flipbook: 'https://heyzine.com/flip-book/d8cd264b61.html',
+          audio: null,
+          video: null,
+          audiobook: null,
+        }
+      },
+    };
+
+    const typeConfig = {
+      flipbook:  { icon: '✉️', title: 'Open the Letter',  sub: 'A page-by-page experience' },
+      audio:     { icon: '🎵', title: 'Sound Effects',    sub: 'Ambient mood sounds' },
+      video:     { icon: '🎬', title: 'Cinematic',        sub: 'Visual story' },
+      audiobook: { icon: '🎧', title: 'Audiobook',        sub: 'Narrated edition' },
+    };
+
+    const typeConfigTh = {
+      flipbook:  { icon: '📖', title: 'เปิด Flipbook',    sub: 'อ่านแบบพลิกหน้า' },
+      audio:     { icon: '🎵', title: 'ฟัง Sound Effect', sub: 'เสียงประกอบตามอารมณ์เรื่อง' },
+      video:     { icon: '🎬', title: 'ชม Cinematic',     sub: 'ภาพวิดีโอบางหน้า' },
+      audiobook: { icon: '🎧', title: 'ฟัง Audiobook',    sub: 'เสียงบรรยาย' },
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get('id') || '';
+    const typeParam = params.get('type') || 'all';
+
+    const product = products[productId];
+    const app = document.getElementById('app');
+    const bg = document.getElementById('bg');
+
+    if (!product) {
+      app.innerHTML = `
+        <div class="not-found">
+          <h2>ไม่พบสินค้านี้ค่ะ</h2>
+          <p style="font-family:'Cormorant Garamond',serif;font-style:italic;margin-bottom:24px">กรุณาตรวจสอบ QR Code ของคุณอีกครั้งค่ะ</p>
+          <a href="https://akpdigital.carrd.co" class="nav-btn" style="color:var(--gold);font-size:14px">กลับสู่ AKP Digital →</a>
+        </div>
+      `;
+    } else {
+      bg.style.backgroundImage = `url('${product.bg}')`;
+      document.title = `${product.titleTh} — AKP Digital`;
+
+      const isEN = product.id.endsWith('-en');
+      const cfg = isEN ? typeConfig : typeConfigTh;
+
+      let showFiles = [];
+      if (typeParam === 'all' || typeParam === 'bundle') {
+        showFiles = Object.keys(cfg).filter(k => product.files[k]);
+      } else {
+        typeParam.split(',').forEach(t => {
+          if (product.files[t.trim()]) showFiles.push(t.trim());
+        });
+      }
+
+      const btns = showFiles.map(key => {
+        const c = cfg[key];
+        const link = product.files[key];
+        return `
+          <a href="${link}" class="product-btn" ${link.startsWith('http') ? 'target="_blank"' : ''}>
+            <span class="btn-icon">${c.icon}</span>
+            <div class="btn-text">
+              <span class="btn-title">${c.title}</span>
+              <span class="btn-sub">${c.sub}</span>
+            </div>
+          </a>
+        `;
+      }).join('');
+
+      const sectionLabel = isEN ? '' : '<p class="section-label">เลือกรูปแบบที่คุณต้องการค่ะ</p>';
+      const navLibrary  = isEN ? '📚 The Library of Feelings' : '📚 ห้องสมุดแห่งความรู้สึก';
+      const navReturn   = isEN ? '🌿 Return to AKP Digital'   : '🌿 กลับสู่ AKP Digital';
+      const notFound    = isEN ? 'No files found for this package.' : 'ไม่พบไฟล์สำหรับแพ็กเกจนี้ค่ะ';
+
+      app.innerHTML = `
+        <div class="header">
+          <p class="brand">AKP Digital</p>
+          <img class="book-cover" src="${product.cover}" alt="${product.titleTh}"/>
+          <h1 class="book-title">${product.titleTh}</h1>
+          <p class="book-title-en">${product.titleEn}</p>
+          <div class="divider">
+            <div class="div-line"></div>
+            <div class="div-dot"></div>
+            <div class="div-line r"></div>
+          </div>
+        </div>
+
+        <div class="content">
+          ${sectionLabel}
+          ${btns || `<p style="color:var(--muted);font-size:14px">${notFound}</p>`}
+        </div>
+
+        <div class="nav-buttons">
+          <a href="https://akpdigital.com/library.html" class="nav-btn">${navLibrary}</a>
+          <a href="https://akpdigital.com" class="nav-btn">${navReturn}</a>
+        </div>
+      `;
+    }
+  </script>
+
+</body>
+</html>
