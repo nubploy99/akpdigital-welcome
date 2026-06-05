@@ -14,6 +14,7 @@
       --body: #4a3020;
       --label: #5a3e28;
       --gold: #7a4e18;
+      --gold2: #c9a96e;
     }
     html { scroll-behavior: smooth; }
     body {
@@ -29,6 +30,7 @@
       pointer-events: none;
     }
 
+    /* HERO HEADER */
     .hero {
       position: relative; z-index: 10;
       text-align: center; padding: 90px 24px 52px;
@@ -40,8 +42,7 @@
     }
     .hero-title {
       font-family: 'Cormorant Garamond', serif; font-weight: 300;
-      font-size: clamp(44px, 8vw, 72px);
-      color: var(--title);
+      font-size: clamp(44px, 8vw, 72px); color: var(--title);
       line-height: 1.05; letter-spacing: -0.01em;
       opacity: 0; animation: fade-up 1.2s ease forwards 0.5s;
     }
@@ -60,22 +61,68 @@
     .hdl.r { background: linear-gradient(to left, transparent, var(--gold)); }
     .hdd { width: 4px; height: 4px; background: var(--gold); transform: rotate(45deg); opacity: 0.7; }
 
+    /* LIBRARY HERO VIDEO SECTION */
+    .library-hero {
+      position: relative; z-index: 10;
+      width: 100%; height: 420px; overflow: hidden;
+      opacity: 0; animation: fade-up 1.2s ease forwards 1s;
+    }
+    .library-hero-video {
+      width: 100%; height: 100%; object-fit: cover;
+      object-position: center center;
+      filter: brightness(0.55);
+    }
+    .library-hero-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 0 24px;
+      background: linear-gradient(to bottom, transparent 20%, rgba(20,10,5,0.3) 100%);
+    }
+    .library-hero-quote {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic;
+      font-size: clamp(20px, 3vw, 32px);
+      color: rgba(245,237,224,0.95); line-height: 1.6;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+      max-width: 700px;
+    }
+    .library-hero-sub {
+      font-weight: 200; font-size: 11px; letter-spacing: 0.5em;
+      text-transform: uppercase; color: rgba(201,169,110,0.8);
+      margin-top: 20px;
+    }
+
+    /* LIBRARY DESCRIPTION */
+    .library-desc {
+      position: relative; z-index: 10;
+      max-width: 680px; margin: 0 auto;
+      padding: 52px 24px 20px; text-align: center;
+      opacity: 0; animation: fade-up 1.2s ease forwards 1.1s;
+    }
+    .library-desc p {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 17px; line-height: 2; color: var(--body);
+      letter-spacing: 0.02em;
+    }
+
+    /* SECTION LABEL */
     .section-label {
       position: relative; z-index: 10;
-      text-align: center; padding: 0 24px 28px;
-      opacity: 0; animation: fade-up 1.2s ease forwards 1s;
+      text-align: center; padding: 20px 24px 28px;
+      opacity: 0; animation: fade-up 1.2s ease forwards 1.2s;
     }
     .section-label p {
       font-weight: 300; font-size: 11px; letter-spacing: 0.5em;
       text-transform: uppercase; color: var(--label);
     }
 
+    /* FEATURED GRID */
     .featured-grid {
       position: relative; z-index: 10;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 24px; padding: 0 28px 72px;
-      max-width: 960px; margin: 0 auto;
+      max-width: 1200px; margin: 0 auto;
     }
 
     .featured-card {
@@ -98,19 +145,24 @@
 
     .featured-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(25,14,5,0.88) 0%, rgba(25,14,5,0.15) 55%, transparent 100%);
+      background: linear-gradient(to top, rgba(25,14,5,0.92) 0%, rgba(25,14,5,0.15) 55%, transparent 100%);
       display: flex; flex-direction: column;
       justify-content: flex-end; padding: 28px 24px;
     }
     .featured-tag {
       font-weight: 300; font-size: 10px; letter-spacing: 0.4em;
-      text-transform: uppercase; color: rgba(235,205,165,1);
-      margin-bottom: 8px;
+      text-transform: uppercase; color: rgba(201,169,110,0.9);
+      margin-bottom: 6px;
     }
     .featured-title {
       font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic;
-      font-size: clamp(22px, 3vw, 28px);
-      color: rgba(255,248,238,1); line-height: 1.2; margin-bottom: 16px;
+      font-size: clamp(20px, 3vw, 26px);
+      color: rgba(255,248,238,1); line-height: 1.2; margin-bottom: 6px;
+    }
+    .featured-tagline {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 13px; color: rgba(220,195,155,0.8);
+      margin-bottom: 14px; letter-spacing: 0.03em;
     }
     .featured-btn {
       font-weight: 300; font-size: 10px; letter-spacing: 0.35em;
@@ -121,11 +173,12 @@
     }
     .featured-card:hover .featured-btn { color: #fff; border-color: rgba(255,255,255,0.6); }
 
+    /* MID DIVIDER */
     .mid-divider {
       position: relative; z-index: 10;
       display: flex; align-items: center; gap: 20px;
       padding: 0 32px 44px; max-width: 960px; margin: 0 auto;
-      opacity: 0; animation: fade-up 1s ease forwards 1.2s;
+      opacity: 0; animation: fade-up 1s ease forwards 1.4s;
     }
     .mid-line { flex: 1; height: 1px; background: rgba(90,62,40,0.25); }
     .mid-text {
@@ -133,6 +186,7 @@
       text-transform: uppercase; color: var(--label); white-space: nowrap;
     }
 
+    /* EXPERIENCE GRID */
     .experience-grid {
       position: relative; z-index: 10;
       display: grid;
@@ -162,6 +216,7 @@
       text-transform: uppercase; color: var(--body);
     }
 
+    /* FOOTER */
     .footer-nav {
       position: relative; z-index: 10; text-align: center;
       padding: 0 24px 70px;
@@ -184,6 +239,7 @@
 </head>
 <body>
 
+  <!-- HEADER -->
   <div class="hero">
     <p class="hero-eyebrow">AKP Digital &nbsp;·&nbsp; Collection</p>
     <h1 class="hero-title">The Library of<br><em>Feelings</em></h1>
@@ -191,6 +247,22 @@
     <div class="hero-divider">
       <div class="hdl"></div><div class="hdd"></div><div class="hdl r"></div>
     </div>
+  </div>
+
+  <!-- LIBRARY HERO VIDEO -->
+  <div class="library-hero">
+    <video class="library-hero-video" autoplay muted loop playsinline>
+      <source src="library-hero.mp4" type="video/mp4"/>
+    </video>
+    <div class="library-hero-overlay">
+      <p class="library-hero-quote">Some stories arrive as books.<br>Some arrive as letters.<br>Some simply find their way back to us<br>when we need them most.</p>
+      <p class="library-hero-sub">Explore the collections below</p>
+    </div>
+  </div>
+
+  <!-- LIBRARY DESCRIPTION -->
+  <div class="library-desc">
+    <p>Every collection begins with a feeling.<br>A place where stories wait to be found.</p>
   </div>
 
   <div class="section-label"><p>Featured Collections</p></div>
@@ -212,35 +284,79 @@
 
   <script>
     const featured = [
-      { title: 'A Letter from the Rainbow Bridge', tag: 'Pet Universe · Featured · TH', image: 'book-rainbow-th.png',         roomId: 'rainbowbridge',    btn: 'Enter Room →',  delay: '1.1s', productPage: null },
-      { title: 'A Letter from the Rainbow Bridge', tag: 'Pet Universe · New · EN',      image: 'book-rainbow-en.png',         roomId: null,               btn: 'Open Letter →', delay: '1.2s', productPage: 'product-rainbow-en.html' },
-      { title: 'Letters from the Quiet Heart',     tag: 'Pet Universe · New',           image: 'book-quiet.png',             roomId: 'quietheart',       btn: 'Enter Room →',  delay: '1.3s', productPage: null },
-      { title: 'The Letter That Found Its Way Home', tag: 'Pet Universe · Collection',  image: 'book-rainbow-collection.png', roomId: null,               btn: 'Coming Soon',   delay: '1.4s', comingSoon: true },
+      {
+        title: 'จดหมายจากสะพานสายรุ้ง',
+        tag: 'Pet Universe · Thai Edition',
+        tagline: 'จดหมายจากความรักที่ไม่เคยจากไป',
+        image: 'book-rainbow-th.png',
+        roomId: 'rainbowbridge',
+        btn: 'Enter Room →',
+        delay: '1.1s',
+        productPage: null
+      },
+      {
+        title: 'A Letter from the Rainbow Bridge',
+        tag: 'Pet Universe · English Edition',
+        tagline: 'A letter from the love that never left.',
+        image: 'book-rainbow-en.png',
+        roomId: null,
+        btn: 'Open Letter →',
+        delay: '1.2s',
+        productPage: 'product-rainbow-en.html'
+      },
+      {
+        title: 'Letters from the Quiet Heart',
+        tag: 'Pet Universe · Coming Soon',
+        tagline: 'For the feelings that speak softly.',
+        image: 'book-quiet.png',
+        roomId: 'quietheart',
+        btn: 'Enter Room →',
+        delay: '1.3s',
+        productPage: null
+      },
+      {
+        title: 'The Letter That Found Its Way Home',
+        tag: 'Pet Universe · Collection',
+        tagline: 'Some letters travel farther than we imagine.',
+        image: 'book-rainbow-collection.png',
+        roomId: null,
+        btn: 'Coming Soon',
+        delay: '1.4s',
+        comingSoon: true
+      },
     ];
 
     const experiences = [
-      { icon: '📖', title: 'Flipbooks',     sub: 'Page by page',    delay: '1.3s' },
-      { icon: '🎧', title: 'Audiobooks',    sub: 'Listen & feel',   delay: '1.4s' },
-      { icon: '📄', title: 'PDF Editions',  sub: 'Download & read', delay: '1.5s' },
-      { icon: '🎞', title: 'Cinematic',     sub: 'Visual stories',  delay: '1.6s' },
-      { icon: '🖼', title: 'Photo Art',     sub: 'Art editions',    delay: '1.7s' },
-      { icon: '📦', title: 'Bundles',       sub: 'Full experience', delay: '1.8s' },
-      { icon: '🌏', title: 'All Languages', sub: 'Global edition',  delay: '1.9s' },
+      { icon: '📖', title: 'Flipbooks',     sub: 'Page by page',    delay: '1.5s' },
+      { icon: '🎧', title: 'Audiobooks',    sub: 'Listen & feel',   delay: '1.6s' },
+      { icon: '📄', title: 'PDF Editions',  sub: 'Download & read', delay: '1.7s' },
+      { icon: '🎞', title: 'Cinematic',     sub: 'Visual stories',  delay: '1.8s' },
+      { icon: '🖼', title: 'Photo Art',     sub: 'Art editions',    delay: '1.9s' },
+      { icon: '📦', title: 'Bundles',       sub: 'Full experience', delay: '2.0s' },
+      { icon: '🌏', title: 'All Languages', sub: 'Global edition',  delay: '2.1s' },
     ];
 
     document.getElementById('featuredGrid').innerHTML = featured.map(f => `
-      <div class="featured-card" style="animation-delay:${f.delay}" onclick="${f.comingSoon ? "alert('Coming Soon 🌙\\nเร็วๆ นี้ค่ะ')" : f.productPage ? `window.location.href='${f.productPage}'` : `goToRoom('${f.roomId}')`}">
-        <img class="featured-img" src="${f.image}" alt="${f.title}" onerror="this.style.height='340px';this.style.background='linear-gradient(135deg,#c4956a,#8b6a4a)'"/>
+      <div class="featured-card" style="animation-delay:${f.delay}"
+        onclick="${f.comingSoon
+          ? "alert('Coming Soon 🌙\\nเร็วๆ นี้ค่ะ')"
+          : f.productPage
+            ? `window.location.href='${f.productPage}'`
+            : `goToRoom('${f.roomId}')`}">
+        <img class="featured-img" src="${f.image}" alt="${f.title}"
+          onerror="this.style.height='340px';this.style.background='linear-gradient(135deg,#c4956a,#8b6a4a)'"/>
         <div class="featured-overlay">
           <p class="featured-tag">${f.tag}</p>
           <h2 class="featured-title">${f.title}</h2>
+          <p class="featured-tagline">${f.tagline}</p>
           <span class="featured-btn">${f.btn}</span>
         </div>
       </div>
     `).join('');
 
     document.getElementById('experienceGrid').innerHTML = experiences.map(e => `
-      <div class="exp-card" style="animation-delay:${e.delay}" onclick="alert('Coming Soon 🌙\nเร็วๆ นี้ค่ะ')">
+      <div class="exp-card" style="animation-delay:${e.delay}"
+        onclick="alert('Coming Soon 🌙\nเร็วๆ นี้ค่ะ')">
         <span class="exp-icon">${e.icon}</span>
         <p class="exp-title">${e.title}</p>
         <p class="exp-sub">${e.sub}</p>
