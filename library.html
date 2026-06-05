@@ -253,12 +253,12 @@
     .footer-btn {
       font-weight: 300; font-size: 12px; letter-spacing: 0.35em;
       text-transform: uppercase; color: var(--heading);
-      background: #ddd0bc; border: 1px solid rgba(122,78,24,0.3);
+      background: #c8b49a; border: 1px solid rgba(122,78,24,0.4);
       padding: 12px 32px; border-radius: 50px;
       cursor: pointer; transition: all 0.3s; text-decoration: none;
       display: inline-block;
     }
-    .footer-btn:hover { background: #cfc0a8; }
+    .footer-btn:hover { background: #b8a08a; }
 
     @keyframes fade-up {
       from { opacity: 0; transform: translateY(16px); }
@@ -268,17 +268,7 @@
 </head>
 <body>
 
-  <!-- HEADER -->
-  <div class="hero">
-    <p class="hero-eyebrow">AKP Digital &nbsp;·&nbsp; Collection</p>
-    <h1 class="hero-title">The Library of<br><em>Feelings</em></h1>
-    <p class="hero-sub">A quiet emotional cinematic library</p>
-    <div class="hero-divider">
-      <div class="hdl"></div><div class="hdd"></div><div class="hdl r"></div>
-    </div>
-  </div>
-
-  <!-- LIBRARY HERO VIDEO -->
+  <!-- LIBRARY HERO VIDEO — ขึ้นก่อนเลย -->
   <div class="library-hero">
     <video class="library-hero-video" id="libraryVideo" muted loop playsinline autoplay>
       <source src="library-hero.mp4" type="video/mp4"/>
@@ -295,6 +285,16 @@
         <div class="sbar muted"></div>
       </div>
       <span class="sound-label" id="libSoundLabel">Sound Off</span>
+    </div>
+  </div>
+
+  <!-- HEADER — ลงมาอยู่ใต้วิดีโอ -->
+  <div class="hero">
+    <p class="hero-eyebrow">AKP Digital &nbsp;·&nbsp; Collection</p>
+    <h1 class="hero-title">The Library of<br><em>Feelings</em></h1>
+    <p class="hero-sub">A quiet emotional cinematic library</p>
+    <div class="hero-divider">
+      <div class="hdl"></div><div class="hdd"></div><div class="hdl r"></div>
     </div>
   </div>
 
@@ -317,7 +317,10 @@
 
   <div class="footer-nav">
     <div class="footer-line"></div>
-    <a href="https://akpdigital.com" class="footer-btn">↩ Return to AKP Digital</a>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+      <a href="https://akpdigital.com/memory-wall.html" class="footer-btn">🕯️ Memory Wall</a>
+      <a href="https://akpdigital.com" class="footer-btn">↩ Return to AKP Digital</a>
+    </div>
   </div>
 
   <script>
