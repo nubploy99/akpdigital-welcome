@@ -382,6 +382,28 @@
         </div>
       </div>
 
+      <!-- CINEMATIC -->
+      <div class="product-card" style="animation-delay:0.65s">
+        <div class="slideshow" id="slideshow-cinematic"></div>
+        <div class="card-body">
+          <span class="card-no">Edition 04</span>
+          <h3 class="card-title">Cinematic Experience</h3>
+          <p class="card-subtitle">Coming Soon</p>
+          <div class="card-divider"></div>
+          <p class="card-desc">A visual journey through the letters — cinematic scenes crafted to carry each word deeper into your heart.</p>
+          <ul class="card-features">
+            <li>Full cinematic visual edition</li>
+            <li>Immersive storytelling experience</li>
+            <li>Original music & sound design</li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <p class="card-price" style="font-size:20px;color:var(--muted)">Coming Soon</p>
+          <a href="#" class="card-btn coming">🔔 Notify Me</a>
+          <p class="card-note">Available soon · For Personal Use Only</p>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -459,6 +481,17 @@
     buildSlideshow('slideshow-pdf', pdfSlides);
     buildSlideshow('slideshow-flip', flipSlides);
     buildSlideshow('slideshow-audio', audioSlides);
+
+    // Cinematic — windchime video portrait crop from bottom
+    const cinematicContainer = document.getElementById('slideshow-cinematic');
+    if (cinematicContainer) {
+      cinematicContainer.style.height = '320px';
+      cinematicContainer.innerHTML = `
+        <video autoplay muted loop playsinline
+          style="width:100%;height:100%;object-fit:cover;object-position:center 80%">
+          <source src="video-windchime.mp4" type="video/mp4"/>
+        </video>`;
+    }
   </script>
 
 </body>
