@@ -112,36 +112,31 @@
     }
     .hero-btn:hover { background: rgba(201,169,110,0.2); border-color: rgba(201,169,110,1); }
 
-    /* LETTER — kraft paper style */
+    /* LETTER — full width image */
     .letter-section {
-      max-width: 860px; margin: 0 auto;
-      padding: 80px 24px 60px; text-align: center;
+      width: 100%; padding: 60px 0 0;
     }
     .letter-deco {
       display: flex; align-items: center; justify-content: center;
-      gap: 12px; margin-bottom: 40px;
+      gap: 12px; margin-bottom: 40px; padding: 0 24px;
     }
     .ldl { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold2)); }
     .ldl.r { background: linear-gradient(to left, transparent, var(--gold2)); }
     .ldd { width: 5px; height: 5px; background: var(--gold2); transform: rotate(45deg); opacity: 0.7; }
 
     .letter-wrap {
-      position: relative; padding: 64px 60px;
-      box-shadow: 0 20px 80px rgba(60,35,10,0.18), 0 4px 20px rgba(60,35,10,0.1);
-      background: url('letter-paper.png') center center / cover no-repeat;
-      border: 1px solid rgba(90,55,20,0.2);
+      width: 100%;
+      position: relative;
+      overflow: hidden;
     }
-    @media (max-width: 480px) { .letter-wrap { padding: 40px 24px; } }
-
-    .letter-body {
-      font-family: 'Frank Ruhl Libre', serif; font-weight: 400;
-      font-size: 19px; line-height: 2.2;
-      color: #2a1508; text-align: left;
-      white-space: pre-line;
-      text-shadow: 0 1px 2px rgba(255,240,220,0.3);
+    .letter-img {
+      width: 100%; display: block;
+      object-fit: cover;
     }
-    @media (max-width: 480px) { .letter-body { font-size: 16px; } }
-    .letter-paw { text-align: center; margin-top: 24px; font-size: 20px; opacity: 0.5; }
+    .letter-paw {
+      text-align: center; padding: 20px 0 40px;
+      font-size: 20px; opacity: 0.5;
+    }
 
     /* CHOOSE */
     .choose-section {
@@ -291,23 +286,9 @@
       <div class="ldl"></div><div class="ldd"></div><div class="ldl r"></div>
     </div>
     <div class="letter-wrap">
-      <p class="letter-body">If longing could travel,
-this would be the very first letter I would send to you, Mom...
-
-On the days when silence feels so loud... yet no one else can hear it...
-I want you to know that
-you are not alone in that silence.
-
-I want this letter to carry my voice
-and bring my love and longing back to you once again...
-
-And if one day
-you hear a gentle breeze by your window...
-perhaps
-that is my letter
-finding its way back to you, Mom.</p>
-      <div class="letter-paw">🐾</div>
+      <img class="letter-img" src="letter-mockup.png" alt="A Letter from the Rainbow Bridge"/>
     </div>
+    <div class="letter-paw">🐾</div>
   </section>
 
   <!-- CHOOSE FORMAT -->
