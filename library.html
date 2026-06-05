@@ -64,7 +64,7 @@
     /* LIBRARY HERO VIDEO SECTION */
     .library-hero {
       position: relative; z-index: 10;
-      width: 100%; height: 420px; overflow: hidden;
+      width: 100%; height: 100vh; overflow: hidden;
       opacity: 0; animation: fade-up 1.2s ease forwards 1s;
     }
     .library-hero-video {
@@ -91,6 +91,32 @@
       text-transform: uppercase; color: rgba(201,169,110,0.8);
       margin-top: 20px;
     }
+
+    /* SOUND TOGGLE */
+    .sound-toggle {
+      position: absolute; top: 20px; right: 24px; z-index: 20;
+      display: flex; align-items: center; gap: 8px;
+      cursor: pointer; padding: 8px 14px;
+      border: 1px solid rgba(201,169,110,0.5);
+      background: rgba(245,237,224,0.15);
+      backdrop-filter: blur(4px);
+      transition: all 0.3s;
+    }
+    .sound-toggle:hover { background: rgba(245,237,224,0.3); }
+    .sound-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 200; font-size: 10px;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(245,237,224,0.8);
+    }
+    .sound-bars { display: flex; align-items: flex-end; gap: 2px; height: 12px; }
+    .sbar { width: 2px; background: rgba(201,169,110,0.7); border-radius: 1px; animation: swave 1.2s ease-in-out infinite; }
+    .sbar:nth-child(1){height:40%;animation-delay:0s}
+    .sbar:nth-child(2){height:100%;animation-delay:0.2s}
+    .sbar:nth-child(3){height:60%;animation-delay:0.4s}
+    .sbar:nth-child(4){height:80%;animation-delay:0.1s}
+    @keyframes swave { 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(0.3)} }
+    .sbar.muted { animation: none; height: 2px !important; }
 
     /* LIBRARY DESCRIPTION */
     .library-desc {
@@ -199,10 +225,11 @@
       padding: 26px 14px 22px; text-align: center; cursor: pointer;
       transition: all 0.4s ease;
       opacity: 0; animation: fade-up 0.9s ease forwards;
+      background: #f0e8dc;
     }
     .exp-card:hover {
       border-color: rgba(90,62,40,0.7);
-      background: rgba(90,62,40,0.07);
+      background: #e6d8c8;
       box-shadow: 0 8px 32px rgba(60,35,10,0.1);
       transform: translateY(-4px);
     }
@@ -224,12 +251,14 @@
     }
     .footer-line { width: 40px; height: 1px; background: rgba(90,62,40,0.35); margin-bottom: 6px; }
     .footer-btn {
-      font-weight: 300; font-size: 10px; letter-spacing: 0.35em;
-      text-transform: uppercase; color: var(--label);
-      background: transparent; border: none; cursor: pointer;
-      transition: color 0.3s; text-decoration: none;
+      font-weight: 300; font-size: 12px; letter-spacing: 0.35em;
+      text-transform: uppercase; color: var(--heading);
+      background: #ddd0bc; border: 1px solid rgba(122,78,24,0.3);
+      padding: 12px 32px; border-radius: 50px;
+      cursor: pointer; transition: all 0.3s; text-decoration: none;
+      display: inline-block;
     }
-    .footer-btn:hover { color: var(--heading); }
+    .footer-btn:hover { background: #cfc0a8; }
 
     @keyframes fade-up {
       from { opacity: 0; transform: translateY(16px); }
@@ -251,12 +280,21 @@
 
   <!-- LIBRARY HERO VIDEO -->
   <div class="library-hero">
-    <video class="library-hero-video" autoplay muted loop playsinline>
+    <video class="library-hero-video" id="libraryVideo" muted loop playsinline autoplay>
       <source src="library-hero.mp4" type="video/mp4"/>
     </video>
     <div class="library-hero-overlay">
       <p class="library-hero-quote">Some stories arrive as books.<br>Some arrive as letters.<br>Some simply find their way back to us<br>when we need them most.</p>
       <p class="library-hero-sub">Explore the collections below</p>
+    </div>
+    <div class="sound-toggle" onclick="toggleLibrarySound()">
+      <div class="sound-bars" id="libSoundBars">
+        <div class="sbar muted"></div>
+        <div class="sbar muted"></div>
+        <div class="sbar muted"></div>
+        <div class="sbar muted"></div>
+      </div>
+      <span class="sound-label" id="libSoundLabel">Sound Off</span>
     </div>
   </div>
 
@@ -370,6 +408,16 @@
       } else if (password !== null) {
         alert('รหัสผ่านไม่ถูกต้องค่ะ\nIncorrect access code. Please check your purchase confirmation.');
       }
+    }
+
+    let libMuted = true;
+    function toggleLibrarySound() {
+      libMuted = !libMuted;
+      const video = document.getElementById('libraryVideo');
+      video.muted = libMuted;
+      if (!libMuted) video.play();
+      document.querySelectorAll('#libSoundBars .sbar').forEach(b => b.classList.toggle('muted', libMuted));
+      document.getElementById('libSoundLabel').textContent = libMuted ? 'Sound Off' : 'Sound On';
     }
   </script>
 </body>
