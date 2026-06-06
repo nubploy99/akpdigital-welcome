@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A Letter from the Rainbow Bridge — Digital PDF Edition</title>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #e8ddd0; --cream: #f5ede0; --title: #6b4a32;
+      --heading: #3a2510; --body: #4a3020; --label: #5a3e28;
+      --gold: #7a4e18; --gold2: #c9a96e; --muted: rgba(74,48,32,0.55);
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); font-family: 'Inter', sans-serif; overflow-x: hidden; color: var(--body); }
+
+    /* LOGO + SOUND */
+    .logo-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(232,221,208,0.95), transparent);
+    }
+    .logo-img { height: 36px; width: auto; opacity: 0.75; transition: opacity 0.3s; }
+    .logo-img:hover { opacity: 1; }
+    .sound-toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 8px 14px; border: 1px solid rgba(122,78,24,0.3); background: rgba(245,237,224,0.7); transition: all 0.3s; }
+    .sound-toggle:hover { background: rgba(245,237,224,0.95); }
+    .sound-label { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--label); }
+    .sound-bars { display: flex; align-items: flex-end; gap: 2px; height: 14px; }
+    .sbar { width: 2px; background: var(--gold2); border-radius: 1px; animation: swave 1.2s ease-in-out infinite; }
+    .sbar:nth-child(1){height:40%;animation-delay:0s} .sbar:nth-child(2){height:100%;animation-delay:0.2s}
+    .sbar:nth-child(3){height:60%;animation-delay:0.4s} .sbar:nth-child(4){height:80%;animation-delay:0.1s}
+    @keyframes swave { 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(0.3)} }
+    .sbar.muted { animation: none; height: 2px !important; }
+
+    /* HERO */
+    .hero { position: relative; width: 100%; height: 100vh; min-height: 600px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; z-index: 0; }
+    .hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, rgba(20,10,5,0.2) 0%, rgba(20,10,5,0.5) 60%, var(--bg) 100%); }
+    .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 24px; opacity: 0; animation: fade-up 2s ease forwards 0.8s; }
+    .hero-eyebrow { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: rgba(240,220,190,0.8); margin-bottom: 20px; }
+    .hero-title { font-family: 'Frank Ruhl Libre', serif; font-weight: 300; font-size: clamp(38px, 7vw, 72px); color: #f5ede0; line-height: 1.15; text-shadow: 0 4px 40px rgba(20,10,5,0.6); margin-bottom: 16px; }
+    .hero-sub { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 14px; color: rgba(232,200,154,0.9); letter-spacing: 0.1em; margin-bottom: 40px; }
+    .hero-btn { display: inline-block; font-family: 'Inter', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--cream); border: 1px solid rgba(201,169,110,0.7); padding: 14px 36px; cursor: pointer; transition: all 0.4s ease; text-decoration: none; background: rgba(245,237,224,0.08); }
+    .hero-btn:hover { background: rgba(201,169,110,0.2); }
+
+    /* LETTER MOCKUP */
+    .letter-section { width: 100%; padding: 60px 0 0; }
+    .letter-wrap { width: 100%; position: relative; overflow: hidden; }
+    .letter-img { width: 100%; display: block; object-fit: cover; filter: brightness(1.15) contrast(0.8) saturate(0.75); }
+    .letter-paw { text-align: center; padding: 20px 0 40px; font-size: 20px; opacity: 0.5; }
+
+    /* WHAT'S INSIDE */
+    .inside-section { max-width: 1100px; margin: 0 auto; padding: 60px 24px 40px; text-align: center; }
+    .inside-label { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--label); margin-bottom: 12px; display: block; }
+    .inside-title { font-family: 'Frank Ruhl Libre', serif; font-weight: 300; font-size: clamp(26px, 4vw, 40px); color: var(--heading); margin-bottom: 10px; }
+    .inside-sub { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 15px; color: var(--muted); margin-bottom: 48px; }
+
+    /* MOCKUP GRID */
+    .mockup-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 60px; }
+    @media (max-width: 768px) { .mockup-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .mockup-grid { grid-template-columns: 1fr; } }
+    .mockup-item { overflow: hidden; border-radius: 2px; box-shadow: 0 8px 32px rgba(60,35,10,0.12); transition: transform 0.4s ease, box-shadow 0.4s ease; }
+    .mockup-item:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(60,35,10,0.2); }
+    .mockup-item img { width: 100%; display: block; object-fit: cover; }
+
+    /* FEATURES */
+    .features-section { max-width: 700px; margin: 0 auto; padding: 0 24px 60px; }
+    .features-list { list-style: none; }
+    .features-list li { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 15px; color: var(--body); padding: 10px 0; display: flex; align-items: flex-start; gap: 12px; line-height: 1.6; border-bottom: 1px solid rgba(122,78,24,0.1); }
+    .features-list li::before { content: '·'; color: var(--gold2); font-size: 20px; flex-shrink: 0; }
+
+    /* BUY SECTION */
+    .buy-section { max-width: 500px; margin: 0 auto; padding: 20px 24px 60px; text-align: center; }
+    .buy-price { font-family: 'Frank Ruhl Libre', serif; font-weight: 400; font-size: 48px; color: var(--heading); margin-bottom: 8px; }
+    .buy-price span { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 300; color: var(--muted); }
+    .buy-note { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 12px; color: var(--muted); margin-bottom: 28px; line-height: 1.7; }
+    .buy-btn { display: block; width: 100%; padding: 18px 24px; background: var(--gold); color: var(--cream); border: none; cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 300; font-size: 13px; letter-spacing: 0.35em; text-transform: uppercase; transition: all 0.3s ease; text-decoration: none; text-align: center; }
+    .buy-btn:hover { background: var(--heading); }
+
+    /* FOOTER */
+    .footer-nav { text-align: center; padding: 40px 24px 70px; border-top: 1px solid rgba(122,78,24,0.12); display: flex; flex-direction: column; align-items: center; gap: 16px; }
+    .footer-btn { display: inline-block; font-family: 'Inter', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--heading); text-decoration: none; background: #ddd0bc; padding: 12px 28px; border-radius: 50px; border: 1px solid rgba(122,78,24,0.25); transition: all 0.3s ease; }
+    .footer-btn:hover { background: #cfc0a8; }
+
+    @keyframes fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+  <div class="logo-bar">
+    <img class="logo-img" src="akp-logo.png" alt="AKP Digital" onerror="this.style.display='none'"/>
+    <div class="sound-toggle" id="soundToggle" onclick="toggleSound()">
+      <div class="sound-bars" id="soundBars">
+        <div class="sbar muted"></div><div class="sbar muted"></div>
+        <div class="sbar muted"></div><div class="sbar muted"></div>
+      </div>
+      <span class="sound-label" id="soundLabel">Sound Off</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <video class="hero-video" id="heroVideo" muted loop playsinline autoplay>
+      <source src="video-windchime.mp4" type="video/mp4"/>
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">AKP Digital &nbsp;·&nbsp; Pet Universe</p>
+      <h1 class="hero-title">A Letter from<br>the Rainbow Bridge</h1>
+      <p class="hero-sub">Digital PDF Edition</p>
+      <a href="#buy" class="hero-btn">💌 Receive Your Letter</a>
+    </div>
+  </section>
+
+  <!-- LETTER MOCKUP -->
+  <section class="letter-section">
+    <div class="letter-wrap">
+      <img class="letter-img" src="letter-mockup.png" alt="A Letter from the Rainbow Bridge"/>
+    </div>
+    <div class="letter-paw">🐾</div>
+  </section>
+
+  <!-- WHAT'S INSIDE -->
+  <section class="inside-section">
+    <span class="inside-label">Digital PDF Edition</span>
+    <h2 class="inside-title">What's Inside Your Letter</h2>
+    <p class="inside-sub">A complete collection of heartfelt letters, beautifully illustrated.</p>
+
+    <div class="mockup-grid">
+      <div class="mockup-item"><img src="mockup-rainbow-1.png" alt=""/></div>
+      <div class="mockup-item"><img src="mockup-rainbow-2.png" alt=""/></div>
+      <div class="mockup-item"><img src="mockup-rainbow-3.png" alt=""/></div>
+      <div class="mockup-item"><img src="mockup-rainbow-4.png" alt=""/></div>
+      <div class="mockup-item"><img src="mockup-rainbow-5.png" alt=""/></div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features-section">
+    <ul class="features-list">
+      <li>Complete Digital PDF Edition</li>
+      <li>Beautiful full-color illustrations throughout</li>
+      <li>Dedicated spaces for photographs & cherished memories</li>
+      <li>A special section to write a letter back to your beloved companion</li>
+      <li>Instant digital download</li>
+      <li>Read on any device</li>
+      <li>Unlimited personal access</li>
+    </ul>
+  </section>
+
+  <!-- BUY -->
+  <section class="buy-section" id="buy">
+    <p class="buy-price">$29.90 <span>USD</span></p>
+    <p class="buy-note">Digital PDF Format · Instant Download<br>For Personal Use Only</p>
+    <a href="https://akpdigital.gumroad.com/l/nzwglt" target="_blank" class="buy-btn">💌 Receive Your Letter</a>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer-nav">
+    <a href="https://akpdigital.com/product-rainbow-en.html" class="footer-btn">📖 See All Editions</a>
+    <a href="https://akpdigital.com/library.html" class="footer-btn">📚 The Library of Feelings</a>
+  </div>
+
+  <script>
+    const heroVideo = document.getElementById('heroVideo');
+    let isMuted = true;
+    function toggleSound() {
+      isMuted = !isMuted;
+      heroVideo.muted = isMuted;
+      if (!isMuted) heroVideo.play();
+      document.querySelectorAll('.sbar').forEach(b => b.classList.toggle('muted', isMuted));
+      document.getElementById('soundLabel').textContent = isMuted ? 'Sound Off' : 'Sound On';
+    }
+  </script>
+</body>
+</html>
