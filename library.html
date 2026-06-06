@@ -199,26 +199,14 @@
     }
     .featured-card:hover .featured-btn { color: #fff; border-color: rgba(255,255,255,0.6); }
 
-    /* PAPER SECTION */
-    .paper-section {
-      position: relative; z-index: 10;
-      width: 100%;
-      background: url('library-paper.png') center center / cover no-repeat;
-    }
-    .paper-section::before {
-      content: ''; position: absolute; inset: 0;
-      background: rgba(245,237,224,0.15);
-      pointer-events: none;
-    }
-
     /* MID DIVIDER */
     .mid-divider {
       position: relative; z-index: 10;
       display: flex; align-items: center; gap: 20px;
-      padding: 60px 32px 44px; max-width: 960px; margin: 0 auto;
+      padding: 0 32px 44px; max-width: 960px; margin: 0 auto;
       opacity: 0; animation: fade-up 1s ease forwards 1.4s;
     }
-    .mid-line { flex: 1; height: 1px; background: rgba(90,62,40,0.3); }
+    .mid-line { flex: 1; height: 1px; background: rgba(90,62,40,0.25); }
     .mid-text {
       font-weight: 300; font-size: 10px; letter-spacing: 0.5em;
       text-transform: uppercase; color: var(--label); white-space: nowrap;
@@ -233,16 +221,15 @@
       max-width: 960px; margin: 0 auto;
     }
     .exp-card {
-      border: 1px solid rgba(90,62,40,0.3);
+      border: 1px solid rgba(90,62,40,0.35);
       padding: 26px 14px 22px; text-align: center; cursor: pointer;
       transition: all 0.4s ease;
       opacity: 0; animation: fade-up 0.9s ease forwards;
-      background: rgba(245,237,224,0.6);
-      backdrop-filter: blur(4px);
+      background: #f0e8dc;
     }
     .exp-card:hover {
       border-color: rgba(90,62,40,0.7);
-      background: rgba(245,237,224,0.85);
+      background: #e6d8c8;
       box-shadow: 0 8px 32px rgba(60,35,10,0.1);
       transform: translateY(-4px);
     }
@@ -320,21 +307,19 @@
 
   <div class="featured-grid" id="featuredGrid"></div>
 
-  <div class="paper-section">
-    <div class="mid-divider">
-      <div class="mid-line"></div>
-      <span class="mid-text">Explore by Experience</span>
-      <div class="mid-line"></div>
-    </div>
+  <div class="mid-divider">
+    <div class="mid-line"></div>
+    <span class="mid-text">Explore by Experience</span>
+    <div class="mid-line"></div>
+  </div>
 
-    <div class="experience-grid" id="experienceGrid"></div>
+  <div class="experience-grid" id="experienceGrid"></div>
 
-    <div class="footer-nav">
-      <div class="footer-line"></div>
-      <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
-        <a href="https://akpdigital.com/memory-wall.html" class="footer-btn">🕯️ Memory Wall</a>
-        <a href="https://akpdigital.com" class="footer-btn">↩ Return to AKP Digital</a>
-      </div>
+  <div class="footer-nav">
+    <div class="footer-line"></div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+      <a href="https://akpdigital.com/memory-wall.html" class="footer-btn">🕯️ Memory Wall</a>
+      <a href="https://akpdigital.com" class="footer-btn">↩ Return to AKP Digital</a>
     </div>
   </div>
 
